@@ -1,0 +1,40 @@
+import random
+
+def objective_function(x):
+    return -x**2 + 4*x
+
+
+def hill_climb(start, step_size=0.1, max_iterations=100):
+
+    current_position = start
+    current_value = objective_function(current_position)
+
+
+    for _ in range(max_iterations):
+      
+        next_position_left = current_position - step_size
+        next_position_right = current_position + step_size
+
+        value_left = objective_function(next_position_left)
+        value_right = objective_function(next_position_right)
+
+        
+        if value_left > current_value:
+            current_position = next_position_left
+            current_value = value_left
+    
+        elif value_right > current_value:
+            current_position = next_position_right
+            current_value = value_right
+        else:
+           
+            break
+
+    return current_position, current_value
+    
+start_position = random.uniform(0, 5)
+
+optimal_position, optimal_value = hill_climb(start_position)
+
+print(f"Best x: {optimal_position}")
+print(f"Best value: {optimal_value}")
